@@ -1,0 +1,15 @@
+{! First, insert the base template as a partial !}
+{>"layouts/master" /}
+
+{! Исправляю дефолтный тайтл из base template !}
+{<title}Error{/title}
+
+{! {<contentBlock} !}
+
+    <h1>{message}</h1>
+    <h2>{error.status}</h2>
+    <p>Error as-is:</p>
+    <h3>{error.errorAsIs}</h3>
+    <pre id="error">{error.stack}</pre>
+
+{! {/contentBlock} !}

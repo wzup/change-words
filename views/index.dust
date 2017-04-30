@@ -1,0 +1,8 @@
+{! First, insert the base template as a partial !}
+{>"layouts/master" /}
+
+{! Исправляю дефолтный тайтл из base template !}
+{<title}{title}{/title}
+
+
+

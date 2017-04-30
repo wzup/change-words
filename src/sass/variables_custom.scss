@@ -1,0 +1,33 @@
+
+// Замениит классы:
+// (className=)("(.+)")
+// $1{styles.$3}
+// #ce1126
+
+$font-family-sans-serif:  "Roboto", "Open Sans", "HelveticaNeue", "Helvetica", "Arial", sans-serif;
+$font-size-base:          14px !default;
+
+$brand-primary: #d6231e !default; // #ce1126 - в wiki
+$link-hover-decoration: none !default;
+
+//== Navbar
+//
+//##
+
+// Basics of a navbar
+$navbar-default-color:             rgba(255, 255, 255, 0.7) !default;
+$navbar-default-bg:                #d6231e !default;
+
+$navbar-default-link-color:                rgba(255, 255, 255, 0.7) !default;
+$navbar-default-link-hover-color:          #fff !default;
+$navbar-default-link-hover-bg:             transparent !default;
+$navbar-default-link-active-color:         lighten($navbar-default-link-color, 10%) !default;
+
+
+$navbar-default-brand-color:               $navbar-default-link-color !default;
+$navbar-default-brand-hover-color:         #fff !default;
+
+// Navbar toggle
+$navbar-default-toggle-hover-bg:           lighten($navbar-default-color, 1%) !default;
+$navbar-default-toggle-icon-bar-bg:        lighten($navbar-default-color, 1%) !default;
+$navbar-default-toggle-border-color:       lighten($navbar-default-color, 1%) !default;

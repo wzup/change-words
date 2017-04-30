@@ -1,0 +1,145 @@
+#!/usr/bin/env node
+
+/**
+ * Module dependencies.
+ */
+
+// http://www.digitalprotein.tech/
+const NODE_ENV = process.env.NODE_ENV || 'development';
+const path = require('path');
+const util = require('util');
+var app = require('../app');
+var debug = require('debug')('iv:www');
+var http = require('http');
+
+/** пробую сделать кластеры */
+// const cluster = require('cluster');
+// const numCPUs = require('os').cpus().length;
+
+
+
+/**
+ * Инициирую sequelizeMysql
+ * Sequelize - синглтон. Поэтому в dataAccessClass.js кеширую его: app.set('mysql', sequelizeMysql);
+ * В момент инициализации приложения - т.е. когда и вызывается этот bin/www, кеширую Sequelize
+ * Теперь он везде доступен как app.get('mysql')
+ * @todo Сделать подстраховку. А вдруг что-то произойдет и он проебется из app.get('mysql'). Тогда вызов будет возвращать undefined (basic type, не стринг).
+ * Нужно что-то типа фабрики - если из app.get('mysql') проебался, то создается тут же новый и кешируется и кеша уже возвращается:
+ *   1. mysql ?
+ *   2. app.set('mysql', sequelizeMysql)
+ *   3. return app.get('mysql')
+ */
+// let mysql = require('../db/dataAccessClass').mysql;
+// let mongoose = require('../db/mongoAccess');
+
+/**
+ * Get port from environment and store in Express.
+ */
+
+var port = normalizePort(process.env.PORT || '3005');
+app.set('port', port);
+
+/**
+ * Create HTTP server.
+ */
+var server = http.createServer(app);
+
+/**
+ * Listen on provided port, on all network interfaces.
+ */
+server.on('error', onError);
+server.on('listening', onListening);
+
+
+server.listen(port);
+
+
+
+
+/**
+ * MongoDB
+ */
+// let mongodbConnection = mongoose.connection;
+// mongodbConnection.on('connecting', function() {
+//     console.log('\n', __filename, '[mongoose CONNECTING]:', arguments);
+// });
+// mongodbConnection.on('connected', function() {
+//     console.log('\n', __filename, '[mongoose CONNECTED]:', arguments);
+// });
+// mongodbConnection.on('error', function() {
+//     console.error('\n', __filename, '[ERROR mongoose] err:\n', err);
+// });
+// mongodbConnection.on('open', function() {
+//     console.log('\n', __filename, '[mongoose OPEN] :', arguments, '\n');
+//     server.listen(port);
+// });
+// mongodbConnection.on('reconnected', function() {
+//     console.log('\n', __filename, '[mongoose RECONNECTED] :', arguments);
+// });
+
+
+
+/**
+ * Вынес из mysql.authenticate().then(function(err) {} т.к. больше не использую мускул пока
+ */
+// server.listen(port);
+
+/**
+ * Normalize a port into a number, string, or false.
+ */
+
+function normalizePort(val) {
+  var port = parseInt(val, 10);
+
+  if (isNaN(port)) {
+    // named pipe
+    return val;
+  }
+
+  if (port >= 0) {
+    // port number
+    return port;
+  }
+
+  return false;
+}
+
+/**
+ * Event listener for HTTP server "error" event.
+ */
+
+function onError(error) {
+  if (error.syscall !== 'listen') {
+    throw error;
+  }
+
+  var bind = typeof port === 'string'
+    ? 'Pipe ' + port
+    : 'Port ' + port;
+
+  // handle specific listen errors with friendly messages
+  switch (error.code) {
+    case 'EACCES':
+      console.error(bind + ' requires elevated privileges');
+      process.exit(1);
+      break;
+    case 'EADDRINUSE':
+      console.error(bind + ' is already in use');
+      process.exit(1);
+      break;
+    default:
+      throw error;
+  }
+}
+
+/**
+ * Event listener for HTTP server "listening" event.
+ */
+
+function onListening() {
+  var addr = server.address();
+  var bind = typeof addr === 'string'
+    ? 'pipe ' + addr
+    : 'port ' + addr.port;
+  debug('Listening on ' + bind);
+}

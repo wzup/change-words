@@ -1,0 +1,16 @@
+
+<div id="root" class="root global">
+    {! {> "_header" /} !}
+
+    {! <section id="" class="content-section"> !}
+
+        {! {+contentBlock/} !}
+
+        {! <div id="content" class="content">
+            {+pageContentMobile/}
+        </div> !}
+
+    {! </section> !}
+    {! <footer class="footer"></footer> !}
+    {html|s}
+</div>
